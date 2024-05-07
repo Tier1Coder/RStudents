@@ -1,0 +1,44 @@
+﻿@model List<Group>
+@{
+}
+@if (TempData["Error"] != null)
+{
+	<div class="alert alert-danger" role="alert">
+		@TempData["Error"]
+	</div>
+}
+
+<h2 class="text-center mb-5">List of Groups</h2>
+
+<div class="row mb-5">
+	<div class="col">
+		<a class="btn btn-primary" asp-controller="Groups" asp-action="Create">New Group</a>
+	</div>
+	<div class="col">
+
+	</div>
+</div>
+
+
+<table class="table">
+	<thead>
+		<th>ID</th>
+		<th>Group Name</th>
+		<th>Action</th>
+	</thead>
+
+	<tbody>
+		@foreach (var group in Model)
+		{
+			<tr>
+				<td>@group.GroupId</td>
+				<td>@group.GroupName</td>
+				<td style="white-space:nowrap">
+					<a class="btn btn-primary btn-sm" asp-controller="Groups" asp-action="Edit" asp-route-id="@group.GroupId">Edit</a>
+					<a class="btn btn-primary btn-sm" asp-controller="Groups" asp-action="Delete" asp-route-id="@group.GroupId" onclick="return confirm('Are you sure?')">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>

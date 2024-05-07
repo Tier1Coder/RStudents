@@ -33,8 +33,8 @@
 				<td>@student.FirstName</td>
 				<td>@student.LastName</td>
 				<td>@student.Age</td>
-				<td>TODO grupa</td>
-				<td>TODO grupa</td>
+				<td>@student.GroupId</td>
+				<td>@(student.Group?.GroupName ?? "No Group")</td>
 				<td style="white-space:nowrap">
 					<a class="btn btn-primary btn-sm" asp-controller="Students" asp-action="Edit" asp-route-id="@student.Id">Edit</a>
 					<a class="btn btn-primary btn-sm" asp-controller="Students" asp-action="Delete" asp-route-id="@student.Id" onclick="return confirm('Are you sure?')">Delete</a>

@@ -11,5 +11,7 @@ namespace RStudents.Models
         public string LastName { get; set; } = "";
         [Required, Range(15, 100)]
         public int Age { get; set; } = 18;
-    }
+        [Required]
+		public int GroupId { get; set; } 
+	}
 }
