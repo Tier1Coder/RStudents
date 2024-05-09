@@ -4,6 +4,8 @@ namespace RStudents.Models
 {
     public class StudentDTO
     {
+        public int Id { get; set; }
+
         [Required, MaxLength(100)]
         public string FirstName { get; set; } = "";
 
@@ -12,6 +14,7 @@ namespace RStudents.Models
         [Required, Range(15, 100)]
         public int Age { get; set; } = 18;
         [Required]
-		public int GroupId { get; set; } 
+		public int GroupId { get; set; }
+
 	}
 }

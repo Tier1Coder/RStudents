@@ -1,5 +1,9 @@
+using log4net.Config;
+using log4net;
 using Microsoft.EntityFrameworkCore;
 using RStudents.Services;
+using System.Reflection;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,19 +11,55 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
-    var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-    options.UseSqlServer(connectionString);
-}
-);
+	var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+	options.UseSqlServer(connectionString);
+});
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+	options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve;
+	options.JsonSerializerOptions.WriteIndented = true;
+});
+
+// Konfiguracja Swaggera
+builder.Services.AddSwaggerGen(c =>
+{
+	c.SwaggerDoc("v1", new OpenApiInfo
+	{
+		Title = "My API",
+		Version = "v1",
+		Description = "An API for performing operations",
+		Contact = new OpenApiContact
+		{
+			Name = "Your Name",
+			Email = "your-email@example.com",
+			Url = new Uri("https://your-website.com"),
+		},
+	});
+});
+
+var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+XmlConfigurator.Configure(logRepository, new System.IO.FileInfo("log4net.config"));
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+	app.UseExceptionHandler("/Home/Error");
+	app.UseHsts();
 }
+else
+{
+	app.UseDeveloperExceptionPage(); // dev error page
+}
+
+// W³¹cza middleware do serwowania dokumentu Swagger i UI Swagger
+app.UseSwagger();
+app.UseSwaggerUI(c =>
+{
+	c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+	c.RoutePrefix = string.Empty; // Ustawia Swagger UI na g³ównym adresie
+});
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -29,7 +69,7 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+	name: "default",
+	pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
