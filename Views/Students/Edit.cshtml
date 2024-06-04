@@ -5,54 +5,54 @@
 
 <div class="row">
     <div class="col-md-8 mx-auto rounded border p-3">
-        <h2 class="text-center mb-5">Edit Student</h2>
+        <h2 id="edit-student-title" class="text-center mb-5">Edit Student</h2>
 
-        <form method="post" enctype="multipart/form-data">
+        <form method="post" enctype="multipart/form-data" id="edit-student-form">
 
             <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">ID</label>
+                <label for="student-id" class="col-sm-4 col-form-label">ID</label>
                 <div class="col-sm-8">
-                    <input class="form-control-plaintext" readonly value="@ViewData["StudentId"]">
+                    <input id="student-id" class="form-control-plaintext" readonly value="@ViewData["StudentId"]">
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">First Name</label>
+                <label for="first-name" class="col-sm-4 col-form-label">First Name</label>
                 <div class="col-sm-8">
-                    <input class="form-control" asp-for="FirstName">
-                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                    <input id="first-name" class="form-control" asp-for="FirstName">
+                    <span id="first-name-validation" asp-validation-for="FirstName" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Last Name</label>
+                <label for="last-name" class="col-sm-4 col-form-label">Last Name</label>
                 <div class="col-sm-8">
-                    <input class="form-control" asp-for="LastName">
-                    <span asp-validation-for="LastName" class="text-danger"></span>
+                    <input id="last-name" class="form-control" asp-for="LastName">
+                    <span id="last-name-validation" asp-validation-for="LastName" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Age</label>
+                <label for="age" class="col-sm-4 col-form-label">Age</label>
                 <div class="col-sm-8">
-                    <input class="form-control" asp-for="Age">
-                    <span asp-validation-for="Age" class="text-danger"></span>
+                    <input id="age" class="form-control" asp-for="Age">
+                    <span id="age-validation" asp-validation-for="Age" class="text-danger"></span>
                 </div>
             </div>
             <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Group</label>
+                <label for="group-id" class="col-sm-4 col-form-label">Group</label>
                 <div class="col-sm-8">
-                    <select asp-for="GroupId" asp-items="ViewBag.Groups" class="form-control"></select>
-                    <span asp-validation-for="GroupId" class="text-danger"></span>
+                    <select id="group-id" asp-for="GroupId" asp-items="ViewBag.Groups" class="form-control"></select>
+                    <span id="group-id-validation" asp-validation-for="GroupId" class="text-danger"></span>
                 </div>
             </div>
 
             <div class="row">
                 <div class="offset-sm-4 col-sm-4 d-grid">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="submit-button">Submit</button>
                 </div>
                 <div class="col-sm-4 d-grid">
-                    <a class="btn btn-outline-light" asp-controller="Students" asp-action="Index" role="button">
+                    <a id="cancel-button" class="btn btn-outline-light" asp-controller="Students" asp-action="Index" role="button">
                         Cancel
                     </a>
                 </div>
@@ -60,7 +60,3 @@
         </form>
     </div>
 </div>
-
-
-
-

@@ -3,42 +3,41 @@
 }
 @if (TempData["Error"] != null)
 {
-	<div class="alert alert-danger" role="alert">
-		@TempData["Error"]
-	</div>
+    <div class="alert alert-danger" role="alert" id="error-message">
+        @TempData["Error"]
+    </div>
 }
 
-<h2 class="text-center mb-5">List of Groups</h2>
+<h2 id="groups-title" class="text-center mb-5">List of Groups</h2>
 
 <div class="row mb-5">
-	<div class="col">
-		<a class="btn btn-primary" asp-controller="Groups" asp-action="Create">New Group</a>
-	</div>
-	<div class="col">
-
-	</div>
+    <div class="col">
+        <a id="new-group-button" class="btn btn-primary" asp-controller="Groups" asp-action="Create">New Group</a>
+    </div>
+    <div class="col">
+    </div>
 </div>
 
+<table class="table" id="groups-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Group Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
 
-<table class="table">
-	<thead>
-		<th>ID</th>
-		<th>Group Name</th>
-		<th>Action</th>
-	</thead>
-
-	<tbody>
-		@foreach (var group in Model)
-		{
-			<tr>
-				<td>@group.GroupId</td>
-				<td>@group.GroupName</td>
-				<td style="white-space:nowrap">
-					<a class="btn btn-primary btn-sm" asp-controller="Groups" asp-action="Edit" asp-route-id="@group.GroupId">Edit</a>
-					<a class="btn btn-primary btn-sm" asp-controller="Groups" asp-action="Delete" asp-route-id="@group.GroupId" onclick="return confirm('Are you sure?')">Delete</a>
-				</td>
-			</tr>
-		}
-	</tbody>
-
+    <tbody>
+        @foreach (var group in Model)
+        {
+            <tr id="group-@group.GroupId">
+                <td>@group.GroupId</td>
+                <td>@group.GroupName</td>
+                <td style="white-space:nowrap">
+                    <a id="edit-group-@group.GroupId" class="btn btn-primary btn-sm" asp-controller="Groups" asp-action="Edit" asp-route-id="@group.GroupId">Edit</a>
+                    <a id="delete-group-@group.GroupId" class="btn btn-primary btn-sm" asp-controller="Groups" asp-action="Delete" asp-route-id="@group.GroupId" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
