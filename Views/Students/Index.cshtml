@@ -2,45 +2,43 @@
 @{
 }
 
-<h2 class="text-center mb-5">List of Students</h2>
+<h2 id="students-list-title" class="text-center mb-5">List of Students</h2>
 
 <div class="row mb-5">
-	<div class="col">
-		<a class="btn btn-primary" asp-controller="Students" asp-action="Create">New Student</a>
-	</div>
-	<div class="col">
-
-	</div>
+    <div class="col">
+        <a id="new-student-button" class="btn btn-primary" asp-controller="Students" asp-action="Create">New Student</a>
+    </div>
+    <div class="col">
+    </div>
 </div>
 
-
-<table class="table">
-	<thead>
-		<th>ID</th>
-		<th>First Name</th>
-		<th>Last Name</th>
-		<th>Age</th>
-		<th>Group ID</th>
-	    <th>Group Name</th>
-		<th>Action</th>
-	</thead>
-
-	<tbody>
-		@foreach (var student in Model)
-		{
-			<tr>
-				<td>@student.Id</td>
-				<td>@student.FirstName</td>
-				<td>@student.LastName</td>
-				<td>@student.Age</td>
-				<td>@student.GroupId</td>
-				<td>@(student.Group?.GroupName ?? "No Group")</td>
-				<td style="white-space:nowrap">
-					<a class="btn btn-primary btn-sm" asp-controller="Students" asp-action="Edit" asp-route-id="@student.Id">Edit</a>
-					<a class="btn btn-primary btn-sm" asp-controller="Students" asp-action="Delete" asp-route-id="@student.Id" onclick="return confirm('Are you sure?')">Delete</a>
-				</td>
-			</tr>
-		}
-	</tbody>
-
+<table id="students-table" class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Group ID</th>
+            <th>Group Name</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr id="student-@student.Id">
+                <td class="student-id">@student.Id</td>
+                <td class="student-firstname">@student.FirstName</td>
+                <td class="student-lastname">@student.LastName</td>
+                <td class="student-age">@student.Age</td>
+                <td class="student-groupid">@student.GroupId</td>
+                <td class="student-groupname">@(student.Group?.GroupName ?? "No Group")</td>
+                <td style="white-space:nowrap">
+                    <a id="edit-student-@student.Id" class="btn btn-primary btn-sm" asp-controller="Students" asp-action="Edit" asp-route-id="@student.Id">Edit</a>
+                    <a id="delete-student-@student.Id" class="btn btn-primary btn-sm" asp-controller="Students" asp-action="Delete" asp-route-id="@student.Id" onclick="return confirm('Are you sure?')">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
