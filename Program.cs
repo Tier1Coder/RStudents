@@ -7,7 +7,7 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services to the container
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
@@ -20,7 +20,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 	options.JsonSerializerOptions.WriteIndented = true;
 });
 
-// Konfiguracja Swaggera
+// Swagger config
 builder.Services.AddSwaggerGen(c =>
 {
 	c.SwaggerDoc("v1", new OpenApiInfo
@@ -42,7 +42,7 @@ XmlConfigurator.Configure(logRepository, new System.IO.FileInfo("log4net.config"
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
 if (!app.Environment.IsDevelopment())
 {
 	app.UseExceptionHandler("/Home/Error");
@@ -53,12 +53,11 @@ else
 	app.UseDeveloperExceptionPage(); // dev error page
 }
 
-// W³¹cza middleware do serwowania dokumentu Swagger i UI Swagger
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
 	c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
-	c.RoutePrefix = string.Empty; // Ustawia Swagger UI na g³ównym adresie
+	c.RoutePrefix = string.Empty; 
 });
 
 app.UseHttpsRedirection();
